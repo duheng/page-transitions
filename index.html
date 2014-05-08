@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Page-transitions : 罗列了一组动画，可以被应用到页面切换过程中，创造出很有趣的导航效果。虽然有些效果都非常简单，只是简单的滑动动作，但另外的一些则是利用了视角（Perspective）和 3D 转换（3D Transforms）来创造一些立体动感的效果。" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Page-transitions</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/varequan/page-transitions">View on GitHub</a>
+
+          <h1 id="project_title">Page-transitions</h1>
+          <h2 id="project_tagline">罗列了一组动画，可以被应用到页面切换过程中，创造出很有趣的导航效果。虽然有些效果都非常简单，只是简单的滑动动作，但另外的一些则是利用了视角（Perspective）和 3D 转换（3D Transforms）来创造一些立体动感的效果。</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/varequan/page-transitions/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/varequan/page-transitions/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>CSS 动画根据它们的实现的效果分为不同的组。为展示页面过渡效果，我们使用以下结构：</p>
+
+<p><code>&lt;div id="pt-main" class="pt-perspective"&gt;</code>
+    <code>&lt;div class="pt-page pt-page-1"&gt;</code>
+        <code>&lt;h1&gt;&lt;span&gt;A collection of&lt;/span&gt;&lt;strong&gt;Page&lt;/strong&gt; Transitions&lt;/h1&gt;</code>
+    <code>&lt;/div&gt;</code>
+    <code>&lt;div class="pt-page pt-page-2"&gt;&lt;!-- ... --&gt;&lt;/div&gt;</code>
+    <code>&lt;!-- ... --&gt;</code>
+<code>&lt;/div&gt;</code>
+　　透视容器的位置是相对的，我们增加1200像素透视它。所有动画效果都需要以下的样式：</p>
+
+<p><code>.pt-perspective {</code>
+    <code>position: relative;</code>
+    <code>width: 100%;</code>
+    <code>height: 100%;</code>
+    <code>perspective: 1200px;</code>
+    <code>transform-style: preserve-3d;</code>
+<code>}</code></p>
+
+<p><code>.pt-page {</code>
+    <code>width: 100%;</code>
+    <code>height: 100%;</code>
+    <code>position: absolute;</code>
+    <code>top: 0;</code>
+    <code>left: 0;</code>
+    <code>visibility: hidden;</code>
+    <code>overflow: hidden;</code>
+    <code>backface-visibility: hidden;</code>
+    <code>transform: translate3d(0, 0, 0);</code>
+<code>}</code></p>
+
+<p><code>.pt-page-current,</code>
+<code>.no-js .pt-page {</code>
+    <code>visibility: visible;</code>
+<code>}</code></p>
+
+<p><code>.no-js body {</code>
+    <code>overflow: auto;</code>
+<code>}</code></p>
+
+<p><code>.pt-page-ontop {</code>
+    <code>z-index: 999;</code>
+<code>}</code>
+　　上面的 .pt-page-ontop 样式用于某些页面过渡效果，即我们需要让一个页面留在另一个页面的顶部。下面是一个代码例子，展示了动画类和关键帧动画，在不同方向上缩放网页和以及淡入淡出效果：</p>
+
+<p><code>/* scale and fade */</code></p>
+
+<p><code>.pt-page-scaleDown {</code>
+    <code>animation: scaleDown .7s ease both;</code>
+<code>}</code></p>
+
+<p><code>.pt-page-scaleUp {</code>
+    <code>animation: scaleUp .7s ease both;</code>
+<code>}</code></p>
+
+<p><code>.pt-page-scaleUpDown {</code>
+    <code>animation: scaleUpDown .5s ease both;</code>
+<code>}</code></p>
+
+<p><code>.pt-page-scaleDownUp {</code>
+    <code>animation: scaleDownUp .5s ease both;</code>
+<code>}</code></p>
+
+<p><code>.pt-page-scaleDownCenter {</code>
+    <code>animation: scaleDownCenter .4s ease-in both;</code>
+<code>}</code></p>
+
+<p><code>.pt-page-scaleUpCenter {</code>
+    <code>animation: scaleUpCenter .4s ease-out both;</code>
+<code>}</code></p>
+
+<p><code>/************ keyframes ************/</code></p>
+
+<p><code>/* scale and fade */</code></p>
+
+<p><code>@keyframes scaleDown {</code>
+    <code>to { opacity: 0; transform: scale(.8); }</code>
+<code>}</code></p>
+
+<p><code>@keyframes scaleUp {</code>
+    <code>from { opacity: 0; transform: scale(.8); }</code>
+<code>}</code></p>
+
+<p><code>@keyframes scaleUpDown {</code>
+    <code>from { opacity: 0; transform: scale(1.2); }</code>
+<code>}</code></p>
+
+<p><code>@keyframes scaleDownUp {</code>
+    <code>to { opacity: 0; transform: scale(1.2); }</code>
+<code>}</code></p>
+
+<p><code>@keyframes scaleDownCenter {</code>
+    <code>to { opacity: 0; transform: scale(.7); }</code>
+<code>}</code></p>
+
+<p><code>@keyframes scaleUpCenter {</code>
+    <code>from { opacity: 0; transform: scale(.7); }</code>
+<code>}</code>
+　　对于本演示的目的，我们采用了相应的动画类应用到当前页以及即将切换进来的页面，例如：</p>
+
+<p><code>case 17:</code>
+    <code>outClass = 'pt-page-scaleDown';</code>
+    <code>inClass = 'pt-page-moveFromRight pt-page-ontop';</code>
+    <code>break;</code>
+<code>case 18:</code>
+    <code>outClass = 'pt-page-scaleDown';</code>
+    <code>inClass = 'pt-page-moveFromLeft pt-page-ontop';</code>
+    <code>break;</code>
+<code>case 19:</code>
+    <code>outClass = 'pt-page-scaleDown';</code>
+    <code>inClass = 'pt-page-moveFromBottom pt-page-ontop';</code>
+    <code>break;</code></p>
+
+<p>　　查看演示，您可以通过点击第一个按钮来浏览一整套的页面切换效果，您也可以选择从下拉菜单中选择一个特定的效果进行预览。</p>
+
+<p>　　</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Page-transitions maintained by <a href="https://github.com/varequan">varequan</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
